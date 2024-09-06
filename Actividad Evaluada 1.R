@@ -162,3 +162,8 @@ Variables_Filtradas <- DatosCIEP3 %>%
     MedianaApoyoParejas = median(Apoyo_ParejasMismoSexo)
   )
 Variables_Filtradas
+
+# PREGUNTA 3, SEGUNDA POSIBILIDAD: filtre usando dplyr para analizar solamente a las personas de 18 a 35 años
+edad_filtrada <- DatosCIEP3 %>%
+  dplyr::filter(edad >= 18 & edad <= 35)
+edad_filtrada 
