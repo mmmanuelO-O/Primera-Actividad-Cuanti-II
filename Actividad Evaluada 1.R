@@ -146,6 +146,9 @@ DatosCIEP3 <- DatosCIEP3 %>%
 
 DatosCIEP3 <- na.omit(DatosCIEP3)
 ##################################################### CREO QUE HICE 3 Y 4, solo que no se como hacer la moda, mas que con table, podría intentar hacer un data frame pero no estoy seguro
+table(DatosCIEP3$sexo)
+DatosCIEP3$sexo <- factor(DatosCIEP3$sexo, labels = c("Hombre", "Mujer"))
+
 Variables_Filtradas <- DatosCIEP3 %>%
   dplyr::filter(edad >= 15 & edad <= 35) %>%
   select(NivelEducativo, SituaciónLaboral, Apoyo_ParejasMismoSexo, sexo) %>%
