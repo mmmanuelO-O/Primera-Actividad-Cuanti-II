@@ -1,7 +1,6 @@
 #Instalar librerias
 library(ggplot2)
 library(dplyr)
-library(readxl)
 library(tidyverse)
 library(knitr)
 library(kableExtra)
@@ -118,3 +117,31 @@ ggplot(datos_grafico, aes(x = reorder(variable, promedio), y = promedio)) +
        y = "Promedio") +
   theme_bw() +
   coord_flip()
+################################################################################################################################################################################################
+################################################ACTIVIDAD EVALUADA################################################
+#Descargar librerias necesarias
+library(haven)
+library(kableExtra)
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(dplyr)
+#Descarge la base de datos del CIEP 2020 utilzada en el curso
+Base_de_datos_Encuesta_CIEP_Abril_2020 <- read_dta("C:/Users/Dell/Downloads/Base de datos Encuesta CIEP Abril 2020.dta")
+View(Base_de_datos_Encuesta_CIEP_Abril_2020)
+#Filtre usando Dplyr la base de datos con 5 variables que sean de su interés. 
+DatosCIEP3 <- dplyr::select(Base_de_datos_Encuesta_CIEP_Abril_2020, sexo, edad, estudios, LABORA1, D6)
+
+DatosCIEP3$sexo <- as.numeric(DatosCIEP3$sexo)
+DatosCIEP3$edad <- as.numeric(DatosCIEP3$edad)
+DatosCIEP3$estudios <- as.numeric(DatosCIEP3$estudios)
+DatosCIEP3 <- DatosCIEP3 %>%
+  rename(NivelEducativo = estudios)
+DatosCIEP3$LABORA1 <- as.numeric(DatosCIEP3$LABORA1)
+DatosCIEP3 <- DatosCIEP3 %>%
+  rename(SituaciónLaboral = LABORA1 )
+DatosCIEP3$D6 <- as.numeric(DatosCIEP3$D6)
+DatosCIEP3 <- DatosCIEP3 %>%
+  rename(Apoyo_ParejasMismoSexo = D6)
+
+DatosCIEP3 <- na.omit(DatosCIEP3)
