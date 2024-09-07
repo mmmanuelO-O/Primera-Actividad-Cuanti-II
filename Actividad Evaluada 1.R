@@ -190,3 +190,25 @@ edades_filtradas <- DatosCIEP3 %>%
     ModaApoyoParejas = as.numeric(names(sort(table(Apoyo_ParejasMismoSexo), decreasing = TRUE))[1]),
   )
 edades_filtradas
+
+
+
+
+######################GRÁFICOS
+#Nivel educativo por sexo
+ggplot(DatosCIEP3, aes(x = NivelEducativo, fill = sexo)) +
+  geom_histogram(binwidth = 1, color = "black") +
+  labs(title = "Distribución del Nivel Educativo por Sexo", 
+       x = "Nivel Educativo", 
+       y = "Frecuencia") +
+  scale_x_continuous(breaks = seq(0, 10, 1)) +
+  theme_minimal()
+
+
+#Este lo descrubrí hoy que le pedí a chat gpt que me enseñara nuevos entonces es más curiosidad pero es de densidad y se ve lindo
+ggplot(DatosCIEP3, aes(x = NivelEducativo)) +
+  geom_density(aes(fill = sexo), alpha = 0.5) +
+  facet_wrap(~ sexo) +
+  labs(title = "Densidad del Nivel Educativo por Sexo", x = "Nivel Educativo", y = "Densidad") +
+  scale_x_continuous(breaks = seq(0, 10, 1)) + 
+  theme_minimal()
