@@ -223,3 +223,13 @@ ggplot(DatosCIEP3, aes(x = NivelEducativo)) +
   labs(title = "Densidad del Nivel Educativo por Sexo", x = "Nivel Educativo", y = "Densidad") +
   scale_x_continuous(breaks = seq(0, 10, 1)) + 
   theme_minimal()
+
+# Nivel educativo combinado con situación laboral --> no estoy seguro si el gráfico está bueno :(
+
+ggplot(edad_filtrada, aes(x = reorder(NivelEducativo,SituaciónLaboral),  y = SituaciónLaboral)) +
+  geom_col(fill= "salmon") +
+  labs(title = "Situación Laboral actual con respecto al Nivel Educativo",
+       x = "Nivel Educativo",
+       y = "Situación Laboral") +
+  theme_bw()
+
