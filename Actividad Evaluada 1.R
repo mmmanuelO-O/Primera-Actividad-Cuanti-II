@@ -168,6 +168,17 @@ Variables_Filtradas
 
 glimpse(Variables_Filtradas) #Para mostrar todas las columnas filtradas por edad y por sexo
 
+# INTERPRETACION DE LOS DATOS OBTENIDOS EN LA PREGUNTA 4:
+## En primer lugar, es importante establecer que, de 448 personas filtradas entre las edades de 18 y 35 años, 240 que respondieron esta encuesta fueron mujeres, mientras que 208 fueron hombres. 
+## Esto demuestra una mayor disposición de las mujeres a participar en encuestas en comparación con los hombres. 
+## En efecto, William G. Smith (2008) en su artículo titulado "Does Gender Influence Online Survey Participation?: A Record-linkage Analysis of University Faculty Online Survey Response Behavior", establece que las mujeres son más propensas a participar que los hombres en este tipo de instrumentos (p. 6).
+### Con respecto al Nivel Educativo, al observar las tres medidas de tendencia central (media, mediana y moda), tanto en hombres como en mujeres notamos que los datos se acercan al número 5, es decir: "estudios universitarios incompletos". 
+### Esto se puede deber al hecho de que una mayoría de las personas encuestadas se encuentran entre los 18 y 25 años de edad, período en el cual la mayoría de las personas jóvenes se encuentran realizando sus estudios universitarios. 
+#### En cuanto a la Situación Laboral, en el caso de los hombres se observa que los datos se acercan al número 2, es decir que, en promedio, la mayoría trabaja al mismo tiempo que lleva a cabo sus estudios; mientras que en el caso de las mujeres, los datos se acercan al número 4, lo que significan que a la hora de haber realizado la encuesta se encuentraban desempleadas. 
+#### Esto puede ser el resultado de la desvalorización de las mujeres en la fuerza laboral, que permea la mayoría de las empresas del país. 
+##### Finalmente, en lo que concierne el Apoyo de las Parejas del Mismo Sexo, observamos que los hombres desaprueban, en mayor proporción, que las parejas del mismo sexo puedan tener el derecho a casarse, con un promedio de 5, utilizando una escala del 1 al 10, en la que 1 indica que desaprueba firmemente y el 10 que indica que aprueba firmemente; en comparación con las mujeres, con un promedio de 7. 
+##### Esto puede estar relacionado a la mayor tolerancia por parte de las mujeres en lo que concierne al apoyo de las minorías, como las personas sexualmente diversas, mientras que los hombres, históricamente, han tenido un mayor reacio hacia esta comunidad. 
+
 # PREGUNTA 3, SEGUNDA POSIBILIDAD: filtre usando dplyr para analizar solamente a las personas de 18 a 35 años
 edad_filtrada <- DatosCIEP3 %>%
   dplyr::filter(edad >= 18 & edad <= 35)
