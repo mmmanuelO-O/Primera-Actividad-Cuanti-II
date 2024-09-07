@@ -167,3 +167,21 @@ Variables_Filtradas
 edad_filtrada <- DatosCIEP3 %>%
   dplyr::filter(edad >= 18 & edad <= 35)
 edad_filtrada 
+
+# PREGUNTA 4, SEGUNDA POSIBILIDAD: Brinde un resumen de las medidas de tendencia de las variables seleccionadas en una sola tabla por sexo e interpretelas.
+edades_filtradas <- DatosCIEP3 %>%
+  dplyr::filter(edad >= 18 & edad <= 35) %>%
+  select(NivelEducativo, SituaciónLaboral, Apoyo_ParejasMismoSexo, sexo) %>%
+  group_by(sexo) %>%
+  summarise(
+    MediaNivelEducativo = mean(NivelEducativo),
+    MedianaNivelEducativo = median(NivelEducativo),
+    ModaNivelEducativo = as.numeric(names(sort(table(NivelEducativo), decreasing = TRUE))[1]), 
+    MediaSituaciónLaboral = mean(SituaciónLaboral),
+    MedianaSituaciónLaboral = median(SituaciónLaboral),
+    ModaSituaciónLaboral = as.numeric(names(sort(table(SituaciónLaboral), decreasing = TRUE))[1]),
+    MediaApoyoParejas = mean(Apoyo_ParejasMismoSexo),
+    MedianaApoyoParejas = median(Apoyo_ParejasMismoSexo), 
+    ModaApoyoParejas = as.numeric(names(sort(table(Apoyo_ParejasMismoSexo), decreasing = TRUE))[1]),
+  )
+edades_filtradas
