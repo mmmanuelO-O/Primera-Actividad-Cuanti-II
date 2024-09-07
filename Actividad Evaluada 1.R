@@ -150,18 +150,23 @@ table(DatosCIEP3$sexo)
 DatosCIEP3$sexo <- factor(DatosCIEP3$sexo, labels = c("Hombre", "Mujer"))
 
 Variables_Filtradas <- DatosCIEP3 %>%
-  dplyr::filter(edad >= 15 & edad <= 35) %>%
+  dplyr::filter(edad >= 18 & edad <= 35) %>%
   select(NivelEducativo, SituaciónLaboral, Apoyo_ParejasMismoSexo, sexo) %>%
   group_by(sexo) %>%
   summarise(
     MediaNivelEducativo = mean(NivelEducativo),
     MedianaNivelEducativo = median(NivelEducativo),
+    ModaNivelEducativo = as.numeric(names(sort(table(NivelEducativo), decreasing = TRUE))[1]), 
     MediaSituaciónLaboral = mean(SituaciónLaboral),
     MedianaSituaciónLaboral = median(SituaciónLaboral),
+    ModaSituaciónLaboral = as.numeric(names(sort(table(SituaciónLaboral), decreasing = TRUE))[1]),
     MediaApoyoParejas = mean(Apoyo_ParejasMismoSexo),
-    MedianaApoyoParejas = median(Apoyo_ParejasMismoSexo)
+    MedianaApoyoParejas = median(Apoyo_ParejasMismoSexo),
+    ModaApoyoParejas = as.numeric(names(sort(table(Apoyo_ParejasMismoSexo), decreasing = TRUE))[1]),
   )
 Variables_Filtradas
+
+glimpse(Variables_Filtradas) #Para mostrar todas las columnas filtradas por edad y por sexo
 
 # PREGUNTA 3, SEGUNDA POSIBILIDAD: filtre usando dplyr para analizar solamente a las personas de 18 a 35 años
 edad_filtrada <- DatosCIEP3 %>%
