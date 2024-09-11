@@ -233,3 +233,60 @@ ggplot(edad_filtrada, aes(x = reorder(NivelEducativo,SituaciónLaboral),  y = Si
        y = "Situación Laboral") +
   theme_bw()
 
+
+
+
+
+
+
+# Instalar las librerias necesarias
+library(haven)
+library(kableExtra)
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(dplyr)
+# 1. DEscargue la base de datos del CIEP 2020 utilizada en el curso
+DatosEncuestaCIEP_2020<- read_dta("C:/Users/Dell/Downloads/Base de datos Encuesta CIEP Abril 2020.dta")
+View(Base_de_datos_Encuesta_CIEP_Abril_2020)
+# 2. Filtre usando Dplyr la base de datos. con 5 variables que sean de su interes
+DatosCIEP <- dplyr::select(DatosEncuestaCIEP_2020, sexo, edad, estudios, LABORA1, D6)
+
+DatosCIEP$sexo <- as.numeric(DatosCIEP$sexo)
+DatosCIEP$edad <- as.numeric(DatosCIEP$edad)
+DatosCIEP$estudios <- as.numeric(DatosCIEP$estudios)
+DatosCIEP <- DatosCIEP %>%
+  rename(NivelEducativo = estudios)
+DatosCIEP$LABORA1 <- as.numeric(DatosCIEP$LABORA1)
+DatosCIEP <- DatosCIEP %>%
+  rename(SituaciónLaboral = LABORA1 )
+DatosCIEP$D6 <- as.numeric(DatosCIEP$D6)
+DatosCIEP <- DatosCIEP %>%
+  rename(Apoyo_ParejasMismoSexo = D6)
+
+DatosCIEP <- na.omit(DatosCIEP)
+# 3. Filtre usando Dplyr paraa analizar las variables solamente a las personas de  18 a 35 años
+Edad_Filtrada <- DatosCIEP %>%
+  dplyr::filter(edad >= 18 & edad <= 35)
+Edad_Filtrada 
+# 4. Brinde un resumen de las medidas de tendencia central de las variables seleccionadas en una sola tabla por sexo  e interpretelas
+DatosCIEP$sexo <- factor(DatosCIEP$sexo, labels = c("Hombre", "Mujer"))
+
+TCEdades_Filtradas <- DatosCIEP %>%
+  dplyr::filter(edad >= 18 & edad <= 35) %>%
+  select(NivelEducativo, SituaciónLaboral, Apoyo_ParejasMismoSexo, sexo) %>%
+  group_by(sexo) %>%
+  summarise(
+    MediaNivelEducativo = mean(NivelEducativo),
+    MedianaNivelEducativo = median(NivelEducativo),
+    ModaNivelEducativo = as.numeric(names(sort(table(NivelEducativo), decreasing = TRUE))[1]), 
+    MediaSituaciónLaboral = mean(SituaciónLaboral),
+    MedianaSituaciónLaboral = median(SituaciónLaboral),
+    ModaSituaciónLaboral = as.numeric(names(sort(table(SituaciónLaboral), decreasing = TRUE))[1]),
+    MediaApoyoParejas = mean(Apoyo_ParejasMismoSexo),
+    MedianaApoyoParejas = median(Apoyo_ParejasMismoSexo), 
+    ModaApoyoParejas = as.numeric(names(sort(table(Apoyo_ParejasMismoSexo), decreasing = TRUE))[1]),
+  )
+
+glimpse(TCEdades_Filtradas)
+# 5. Elabore al menos dos gráficos distintos en ggplot con las variables seleccionadas
